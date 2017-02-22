@@ -268,11 +268,6 @@ class genTestcase:
         tf.write("    [Tags]    notready"+"\n")
         tf.write("    [Template]    "+variable_name_cap+"_negative_Temp\n")
         gp = genPairwisetestdata()
-<<<<<<< HEAD
-        #print param_list
-=======
-        print param_list
->>>>>>> af93ca0919680a9d15caa1212f8beada9dbd9cdb
         test_data_list = gp.main('./input_file_temp.txt',param_list)
         count = 0
         for test_data in test_data_list:
@@ -386,11 +381,5 @@ class genTestcase:
     
 if __name__ == "__main__":
     gt = genTestcase()
-<<<<<<< HEAD
-    #gt.main("gx","app-ios-api.har",spliter=".com/")
     gt.main("hso","web_api.har",spliter=".com/")
     #gt.gen_input_file_temp("gx","web_api.har")
-=======
-    gt.main("gx","app-ios-api.har",spliter=".com/")
-    #gt.gen_input_file_temp("gx","app-ios-api.har")
->>>>>>> af93ca0919680a9d15caa1212f8beada9dbd9cdb
