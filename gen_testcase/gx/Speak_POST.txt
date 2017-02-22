@@ -1,0 +1,37 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/adviser/speak
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Speak
+    [Documentation]    https://app.91guoxin.com/adviser/speak
+    [Template]    Speak_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    大家早上好
+    ...    ${EMPTY}    ${TEST_ROOM_ID}
+
+Speak_negative
+    [Documentation]    https://app.91guoxin.com/adviser/speak
+    [Tags]    negative
+    [Template]    Speak_negative_Temp
+
+*** Keywords ***
+Speak_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${Content}    ${ReplyTo}    ${RoomID}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Speak    ${resp[4]}    ${Content}    ${ReplyTo}    ${RoomID}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Speak_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${Content}    ${ReplyTo}    ${RoomID}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Speak    ${resp[4]}    ${Content}    ${ReplyTo}    ${RoomID}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

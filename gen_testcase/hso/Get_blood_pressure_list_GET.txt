@@ -1,0 +1,31 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/get_blood_pressure_list?
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Get_blood_pressure_list_get
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/get_blood_pressure_list?
+    [Template]    Get_blood_pressure_list_get_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    oVcyAwtf_d86Eig1zGkdJBJxk_Zk    1    10
+
+Get_blood_pressure_list_get_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/get_blood_pressure_list?
+    [Tags]    notready
+    [Template]    Get_blood_pressure_list_get_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    oVcyAwtf_d86Eig1zGkdJBJxk_Zk    1    10
+    TestData2: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    oVcyAwtf_d86Eig1zGkdJBJxk_Zk    1    10
+
+*** Keywords ***
+Get_blood_pressure_list_get_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}    ${page}    ${pageSize}
+    Log    ${testdata_info}
+    ${resp}=    Get_blood_pressure_list_get    ${SESSION}    ${openId}    ${page}    ${pageSize}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Get_blood_pressure_list_get_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}    ${page}    ${pageSize}
+    Log    ${testdata_info}
+    ${resp}=    Get_blood_pressure_list_get    ${SESSION}    ${openId}    ${page}    ${pageSize}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

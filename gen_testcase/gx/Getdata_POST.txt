@@ -1,0 +1,39 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/adviser/getData
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Getdata
+    [Documentation]    https://app.91guoxin.com/adviser/getData
+    [Template]    Getdata_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    25
+    ...    1    0    48    0    8
+
+Getdata_negative
+    [Documentation]    https://app.91guoxin.com/adviser/getData
+    [Tags]    negative
+    [Template]    Getdata_negative_Temp
+
+*** Keywords ***
+Getdata_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${count}    ${isLater}    ${isMore}    ${roomId}    ${startId}    ${type}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Getdata    ${resp[4]}    ${count}    ${isLater}    ${isMore}    ${roomId}
+    ...    ${startId}    ${type}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Getdata_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${count}    ${isLater}    ${isMore}    ${roomId}    ${startId}    ${type}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Getdata    ${resp[4]}    ${count}    ${isLater}    ${isMore}    ${roomId}
+    ...    ${startId}    ${type}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

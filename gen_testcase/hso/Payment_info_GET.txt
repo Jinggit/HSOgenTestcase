@@ -1,0 +1,29 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/payment/prescription/1/payment_info?
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Payment_info_get
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/payment/prescription/1/payment_info?
+    [Template]    Payment_info_get_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    2017-02-17 12:21:08    2017-02-17 12:21:10    2017-02-17 12:21:52
+
+Payment_info_get_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/payment/prescription/1/payment_info?
+    [Tags]    notready
+    [Template]    Payment_info_get_negative_Temp
+
+*** Keywords ***
+Payment_info_get_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${indicatorUpdatedTime}    ${serviceUpdatedTime}    ${userInfoUpdatedTime}
+    Log    ${testdata_info}
+    ${resp}=    Payment_info_get    ${SESSION}    ${indicatorUpdatedTime}    ${serviceUpdatedTime}    ${userInfoUpdatedTime}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Payment_info_get_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${indicatorUpdatedTime}    ${serviceUpdatedTime}    ${userInfoUpdatedTime}
+    Log    ${testdata_info}
+    ${resp}=    Payment_info_get    ${SESSION}    ${indicatorUpdatedTime}    ${serviceUpdatedTime}    ${userInfoUpdatedTime}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

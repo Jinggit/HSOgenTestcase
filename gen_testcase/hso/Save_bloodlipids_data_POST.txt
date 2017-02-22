@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/save_bloodlipids_data
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Save_bloodlipids_data_post
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/save_bloodlipids_data
+    [Template]    Save_bloodlipids_data_post_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    {u'openId': u'oVcyAwtf_d86Eig1zGkdJBJxk_Zk', u'LDLC': u'78.6', u'measurementTime': u'2017-02-17 11:58', u'inspectionReportImg': [u'https://dev.pic.shaka.hsohealth.com/blood_lipid/2017_02/x4jp5k-IMG_0029.PNG', u'https://dev.pic.shaka.hsohealth.com/blood_lipid/2017_02/PEzy66-image.jpg'], u'HDLC': u'45.6', u'TG': u'34.5', u'type': 1, u'TC': u'12.6'}
+
+Save_bloodlipids_data_post_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/save_bloodlipids_data
+    [Tags]    notready
+    [Template]    Save_bloodlipids_data_post_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}        {u'openId': ' oVcyAwtf_d86Eig1zGkdJBJxk_Zk'}
+
+*** Keywords ***
+Save_bloodlipids_data_post_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Save_bloodlipids_data_post    ${SESSION}    ${postbody}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Save_bloodlipids_data_post_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Save_bloodlipids_data_post    ${SESSION}    ${postbody}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

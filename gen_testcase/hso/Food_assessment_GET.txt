@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/real_time/food_assessment?
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Food_assessment_get
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/real_time/food_assessment?
+    [Template]    Food_assessment_get_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    花    oVcyAwtf_d86Eig1zGkdJBJxk_Zk    0
+
+Food_assessment_get_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/real_time/food_assessment?
+    [Tags]    notready
+    [Template]    Food_assessment_get_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    oVcyAwtf_d86Eig1zGkdJBJxk_Zk    0
+
+*** Keywords ***
+Food_assessment_get_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${name}    ${openId}    ${type}
+    Log    ${testdata_info}
+    ${resp}=    Food_assessment_get    ${SESSION}    ${name}    ${openId}    ${type}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Food_assessment_get_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${name}    ${openId}    ${type}
+    Log    ${testdata_info}
+    ${resp}=    Food_assessment_get    ${SESSION}    ${name}    ${openId}    ${type}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

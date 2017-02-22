@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/insurance_qa_list?
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Insurance_qa_list_get
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/insurance_qa_list?
+    [Template]    Insurance_qa_list_get_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+Insurance_qa_list_get_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/insurance_qa_list?
+    [Tags]    notready
+    [Template]    Insurance_qa_list_get_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}     oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+*** Keywords ***
+Insurance_qa_list_get_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Insurance_qa_list_get    ${SESSION}    ${openId}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Insurance_qa_list_get_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Insurance_qa_list_get    ${SESSION}    ${openId}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

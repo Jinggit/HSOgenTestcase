@@ -1,0 +1,70 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/secret/open-account
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Open-account
+    [Documentation]    https://app.91guoxin.com/secret/open-account
+    [Tags]    negative
+    [Template]    Open-account_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    0
+    ...    0    0    0    0    0    0
+    ...    0    0    0    0    0    0
+    ...    0    0    1    1    6    3
+    ...    7    9    9    5    7    7
+    ...    9    7    9    5    7    7
+    ...    9    7    9    5    7    3
+    ...    5    5    5    9    qiluce
+
+Open-account_negative
+    [Documentation]    https://app.91guoxin.com/secret/open-account
+    [Tags]    negative
+    [Template]    Open-account_negative_Temp
+
+*** Keywords ***
+Open-account_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${COMMODITY}    ${COMMODITYDATE}    ${DEMAND}    ${ESTATE}    ${ESTATEDATE}    ${EXCHANGE}
+    ...    ${EXCHANGEDATE}    ${FUTURE}    ${FUTUREDATE}    ${FUTURESINDEX}    ${FUTURESINDEXDATE}    ${LONGTIME}
+    ...    ${OPTIONS}    ${OPTIONSDATE}    ${RISK}    ${SHORTTIME}    ${STOCK}    ${STOCKDATE}
+    ...    ${bankAcc}    ${bankId}    ${cktrue}    ${customerName}    ${idNumber}    ${idType}
+    ...    ${ip}    ${password}    ${password1}    ${phonePWD}    ${phonePWD1}    ${risk1}
+    ...    ${risk10}    ${risk11}    ${risk12}    ${risk2}    ${risk3}    ${risk4}
+    ...    ${risk5}    ${risk6}    ${risk7}    ${risk8}    ${risk9}    ${type}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Open-account    ${resp[4]}    ${COMMODITY}    ${COMMODITYDATE}    ${DEMAND}    ${ESTATE}
+    ...    ${ESTATEDATE}    ${EXCHANGE}    ${EXCHANGEDATE}    ${FUTURE}    ${FUTUREDATE}    ${FUTURESINDEX}
+    ...    ${FUTURESINDEXDATE}    ${LONGTIME}    ${OPTIONS}    ${OPTIONSDATE}    ${RISK}    ${SHORTTIME}
+    ...    ${STOCK}    ${STOCKDATE}    ${bankAcc}    ${bankId}    ${cktrue}    ${customerName}
+    ...    ${idNumber}    ${idType}    ${ip}    ${password}    ${password1}    ${phonePWD}
+    ...    ${phonePWD1}    ${risk1}    ${risk10}    ${risk11}    ${risk12}    ${risk2}
+    ...    ${risk3}    ${risk4}    ${risk5}    ${risk6}    ${risk7}    ${risk8}
+    ...    ${risk9}    ${type}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Open-account_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${COMMODITY}    ${COMMODITYDATE}    ${DEMAND}    ${ESTATE}    ${ESTATEDATE}    ${EXCHANGE}
+    ...    ${EXCHANGEDATE}    ${FUTURE}    ${FUTUREDATE}    ${FUTURESINDEX}    ${FUTURESINDEXDATE}    ${LONGTIME}
+    ...    ${OPTIONS}    ${OPTIONSDATE}    ${RISK}    ${SHORTTIME}    ${STOCK}    ${STOCKDATE}
+    ...    ${bankAcc}    ${bankId}    ${cktrue}    ${customerName}    ${idNumber}    ${idType}
+    ...    ${ip}    ${password}    ${password1}    ${phonePWD}    ${phonePWD1}    ${risk1}
+    ...    ${risk10}    ${risk11}    ${risk12}    ${risk2}    ${risk3}    ${risk4}
+    ...    ${risk5}    ${risk6}    ${risk7}    ${risk8}    ${risk9}    ${type}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Open-account    ${resp[4]}    ${COMMODITY}    ${COMMODITYDATE}    ${DEMAND}    ${ESTATE}
+    ...    ${ESTATEDATE}    ${EXCHANGE}    ${EXCHANGEDATE}    ${FUTURE}    ${FUTUREDATE}    ${FUTURESINDEX}
+    ...    ${FUTURESINDEXDATE}    ${LONGTIME}    ${OPTIONS}    ${OPTIONSDATE}    ${RISK}    ${SHORTTIME}
+    ...    ${STOCK}    ${STOCKDATE}    ${bankAcc}    ${bankId}    ${cktrue}    ${customerName}
+    ...    ${idNumber}    ${idType}    ${ip}    ${password}    ${password1}    ${phonePWD}
+    ...    ${phonePWD1}    ${risk1}    ${risk10}    ${risk11}    ${risk12}    ${risk2}
+    ...    ${risk3}    ${risk4}    ${risk5}    ${risk6}    ${risk7}    ${risk8}
+    ...    ${risk9}    ${type}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

@@ -1,0 +1,37 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/idfa/registerIDFA
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Registeridfa
+    [Documentation]    https://app.91guoxin.com/idfa/registerIDFA
+    [Template]    Registeridfa_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    46CB694C-043D-4EE8-ABF1-63BF939E5ECC
+    ...    18507132021
+
+Registeridfa_negative
+    [Documentation]    https://app.91guoxin.com/idfa/registerIDFA
+    [Tags]    negative
+    [Template]    Registeridfa_negative_Temp
+
+*** Keywords ***
+Registeridfa_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${idfa}    ${mobile}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Registeridfa    ${resp[4]}    ${idfa}    ${mobile}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Registeridfa_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${idfa}    ${mobile}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Registeridfa    ${resp[4]}    ${idfa}    ${mobile}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

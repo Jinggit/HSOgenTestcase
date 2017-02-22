@@ -1,0 +1,36 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/set-quotation-reminder-sms
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Set-quotation-reminder-sms
+    [Documentation]    https://app.91guoxin.com/set-quotation-reminder-sms
+    [Template]    Set-quotation-reminder-sms_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    1
+
+Set-quotation-reminder-sms_negative
+    [Documentation]    https://app.91guoxin.com/set-quotation-reminder-sms
+    [Tags]    negative
+    [Template]    Set-quotation-reminder-sms_negative_Temp
+
+*** Keywords ***
+Set-quotation-reminder-sms_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${bySms}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Set-quotation-reminder-sms    ${resp[4]}    ${bySms}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Set-quotation-reminder-sms_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${bySms}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Set-quotation-reminder-sms    ${resp[4]}    ${bySms}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

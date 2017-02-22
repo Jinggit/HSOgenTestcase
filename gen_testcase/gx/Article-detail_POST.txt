@@ -1,0 +1,36 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/article-detail
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Article-detail
+    [Documentation]    https://app.91guoxin.com/article-detail
+    [Template]    Article-detail_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    60896
+
+Article-detail_negative
+    [Documentation]    https://app.91guoxin.com/article-detail
+    [Tags]    negative
+    [Template]    Article-detail_negative_Temp
+
+*** Keywords ***
+Article-detail_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${id}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Article-detail    ${resp[4]}    ${id}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Article-detail_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${id}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Article-detail    ${resp[4]}    ${id}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

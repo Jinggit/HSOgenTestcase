@@ -1,0 +1,63 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/get-live-speak?
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Get-live-speak
+    [Documentation]    https://app.91guoxin.com/get-live-speak?
+    [Template]    Get-live-speak_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    137456
+    ...    20    1    58
+
+Get-live-speak_negative
+    [Documentation]    https://app.91guoxin.com/get-live-speak?
+    [Tags]    negative
+    [Template]    Get-live-speak_negative_Temp
+    TestData1: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    137456
+    ...    20    1    58
+    TestData2: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    137456
+    ...    20    1    ${EMPTY}
+    TestData3: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    137456
+    ...    20    ${EMPTY}    58
+    TestData4: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    137456
+    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    TestData5: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    137456
+    ...    ${EMPTY}    ${EMPTY}    58
+    TestData6: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    137456
+    ...    ${EMPTY}    1    ${EMPTY}
+    TestData7: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    ${EMPTY}
+    ...    20    1    58
+    TestData8: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    ${EMPTY}
+    ...    20    1    ${EMPTY}
+    TestData9: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    ${EMPTY}
+    ...    20    ${EMPTY}    58
+    TestData10: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    ${EMPTY}
+    ...    ${EMPTY}    1    ${EMPTY}
+    TestData11: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}    58
+    TestData12: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    137456
+    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    TestData13: 输入组合测试    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}    58
+
+*** Keywords ***
+Get-live-speak_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${baseId}    ${count}    ${isRefresh}    ${roomId}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Get-live-speak    ${resp[4]}    ${baseId}    ${count}    ${isRefresh}    ${roomId}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Get-live-speak_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${baseId}    ${count}    ${isRefresh}    ${roomId}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Get-live-speak    ${resp[4]}    ${baseId}    ${count}    ${isRefresh}    ${roomId}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

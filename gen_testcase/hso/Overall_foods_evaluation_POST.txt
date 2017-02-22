@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/overall_foods_evaluation
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Overall_foods_evaluation_post
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/overall_foods_evaluation
+    [Template]    Overall_foods_evaluation_post_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    {u'openId': u'oVcyAwtf_d86Eig1zGkdJBJxk_Zk', u'foodIds': [4, 11, 13, 18, 202, 457, 1217], u'foodNames': []}
+
+Overall_foods_evaluation_post_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/overall_foods_evaluation
+    [Tags]    notready
+    [Template]    Overall_foods_evaluation_post_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}        {u'openId': ' oVcyAwtf_d86Eig1zGkdJBJxk_Zk'}
+
+*** Keywords ***
+Overall_foods_evaluation_post_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Overall_foods_evaluation_post    ${SESSION}    ${postbody}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Overall_foods_evaluation_post_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Overall_foods_evaluation_post    ${SESSION}    ${postbody}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

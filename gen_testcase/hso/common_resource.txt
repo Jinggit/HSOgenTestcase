@@ -1,0 +1,47 @@
+*** Settings ***
+Documentation     全局变量
+
+*** Variables ***
+${DEV_API_ROOT_URL}    https://dev.shaco.hsohealth.com
+${API_VERSION}    v1.0    # API版本号
+${USER_AGENT}     iOS/8.400000;iPhone 6 (A1549/A1586);beast/2.2.0.4711
+${DEVICE_TOKEN}    04A7DEB91E8C4610B17A638E2EF05CEB
+${CONTENT_TYPE}    application/json
+${AUTO_USERNAME}    15311446193
+${AUTO_PASSWORD}    123456
+${SESSION}    ${EMPTY}
+${TAKE_MEDICINE_RECORD_TIMES_URI}    /shacoapi/api/v1/patient_mgmt/patients/take_medicine_record_times
+${OVERALL_FOODS_EVALUATION_URI}    /shacoapi/api/v1/patient_mgmt/patients/overall_foods_evaluation
+${MY_FOODS_URI}    /shacoapi/api/v1/patient_mgmt/patients/my_foods
+${GET_SHARE_URI}    /shacoapi/api/v1/patient_mgmt/patients/get_share
+${MY_APPOINTMENT_URI}    /shacoapi/api/v1/patient_mgmt/patients/my_appointment
+${GET_MEDICATION_SCORE_LIST_URI}    /shacoapi/api/v1/patient_mgmt/patients/get_medication_score_list
+${INSURANCE_QA_LIST_URI}    /shacoapi/api/v1/patient_mgmt/patients/insurance_qa_list
+${GET_DANGER_CHECK_INFO_URI}    /shacoapi/api/v1/patient_mgmt/patients/get_danger_check_info
+${GET_MEDICATION_STATUS_URI}    /shacoapi/api/v1/patient_mgmt/patients/get_medication_status
+${VALIDATE_SERVICE_TERM_URI}    /shacoapi/api/v1/patient_mgmt/electronic_prescription/validate_service_term
+${JS_CONFIG_URI}    /shacoapi/api/v1/js_config
+${MY_DOCTOR_STUDIO_URI}    /shacoapi/api/v1/patient_mgmt/patient/my_doctor_studio
+${RECORD_SUM_URI}    /shacoapi/api/v1/patient_mgmt/patient/record_sum
+${FOOD_ASSESSMENT_URI}    /shacoapi/api/v1/real_time/food_assessment
+${DANGER_CHECK_URI}    /shacoapi/api/v1/patient_mgmt/patients/danger_check
+${SAVE_USER_MEDICATION_LIST_URI}    /shacoapi/api/v1/patient_mgmt/patients/save_user_medication_list
+${GET_LIPIDS_SIGNING_UP_RECORD_URI}    /shacoapi/api/v1/patient_mgmt/patients/get_lipids_signing_up_record
+${CHARGE_URI}    /shacoapi/api/v1/payment/charge
+${INSURANCE_QA_URI}    /shacoapi/api/v1/patient_mgmt/patients/insurance_qa
+${GET_MEDICATION_TIME_LINE_URI}    /shacoapi/api/v1/patient_mgmt/patients/get_medication_time_line
+${MY_INSURANCE_LIST_URI}    /shacoapi/api/v1/patient_mgmt/patient/my_insurance_list
+${CONSULT_DIET_MANAGER_URI}    /shacoapi/api/v1/patient_mgmt/patients/consult_diet_manager
+${SAVE_TAKE_MEDICINE_RECORD_URI}    /shacoapi/api/v1/patient_mgmt/patients/save_take_medicine_record
+${UPDATE_USER_INFO_URI}    /shacoapi/api/v1/patient_mgmt/electronic_prescription/update_user_info
+${SAVE_BLOOD_PRESSURE_DATA_URI}    /shacoapi/api/v1/patient_mgmt/patients/save_blood_pressure_data
+${HSO_RECORD_URI}    /shacoapi/api/v1/get_oss_signature/hso_record
+${DOCTOR_STUDIOS_URI}    /shacoapi/api/v1/patient_mgmt/patients/doctor_studios
+${GET_INSURANCE_STATUS_URI}    /shacoapi/api/v1/patient_mgmt/patients/get_insurance_status
+${PAYMENT_INFO_URI}    /shacoapi/api/v1/payment/prescription/1/payment_info
+${MEDICATION_URI}    /shacoapi/api/v1/real_time/medication
+${GET_BLOOD_PRESSURE_LIST_URI}    /shacoapi/api/v1/patient_mgmt/patients/get_blood_pressure_list
+${GET_BLOOD_PRESSURE_HISTORY_DATA_URI}    /shacoapi/api/v1/patient_mgmt/patients/get_blood_pressure_history_data
+${MY_APPOINTMENT_URI}    /shacoapi/api/v1/patient_mgmt/patients/my_appointment
+${SINGLE_FOODS_EVALUATION_URI}    /shacoapi/api/v1/patient_mgmt/patients/single_foods_evaluation
+${SAVE_BLOODLIPIDS_DATA_URI}    /shacoapi/api/v1/patient_mgmt/patients/save_bloodlipids_data

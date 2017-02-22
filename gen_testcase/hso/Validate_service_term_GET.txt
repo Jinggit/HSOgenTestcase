@@ -1,0 +1,31 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/electronic_prescription/validate_service_term?
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Validate_service_term_get
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/electronic_prescription/validate_service_term?
+    [Template]    Validate_service_term_get_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    1    2017-02-17 12:21:10    2017-02-17 12:05:18    oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+Validate_service_term_get_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/electronic_prescription/validate_service_term?
+    [Tags]    notready
+    [Template]    Validate_service_term_get_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    1    1    oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+    TestData2: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    1    1    oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+*** Keywords ***
+Validate_service_term_get_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${id}    ${linkTime}    ${userInfoTime}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Validate_service_term_get    ${SESSION}    ${id}    ${linkTime}    ${userInfoTime}    ${openId}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Validate_service_term_get_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${id}    ${linkTime}    ${userInfoTime}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Validate_service_term_get    ${SESSION}    ${id}    ${linkTime}    ${userInfoTime}    ${openId}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

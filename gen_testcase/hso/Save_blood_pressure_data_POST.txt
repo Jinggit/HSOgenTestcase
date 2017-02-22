@@ -1,0 +1,29 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/save_blood_pressure_data
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Save_blood_pressure_data_post
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/save_blood_pressure_data
+    [Template]    Save_blood_pressure_data_post_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    {u'eventData': {u'measurementTime': u'2017-02-17 11:53', u'remarks': [u'\u5934\u6655\u5934\u75db', u'\u56db\u80a2\u65e0\u529b', u'\u89c6\u7269\u6a21\u7cca'], u'heartRate': 80, u'bloodPressure': {u'systolicPressure': 140, u'diastolicPressure': 90}, u'measurementPeriod': u'\u65e5\u95f4\u8840\u538b'}, u'openId': u'oVcyAwtf_d86Eig1zGkdJBJxk_Zk'}
+
+Save_blood_pressure_data_post_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/save_blood_pressure_data
+    [Tags]    notready
+    [Template]    Save_blood_pressure_data_post_negative_Temp
+
+*** Keywords ***
+Save_blood_pressure_data_post_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Save_blood_pressure_data_post    ${SESSION}    ${postbody}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Save_blood_pressure_data_post_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Save_blood_pressure_data_post    ${SESSION}    ${postbody}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

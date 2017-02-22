@@ -1,0 +1,51 @@
+*** Settings ***
+Documentation     全局变量
+
+*** Variables ***
+${APP_API_ROOT_URL}    https://app.91guoxin.com
+${API_VERSION}    v1.0    # API版本号
+${USER_AGENT}     iOS/8.400000;iPhone 6 (A1549/A1586);beast/2.2.0.4711
+${DEVICE_TOKEN}    04A7DEB91E8C4610B17A638E2EF05CEB
+${CONTENT_TYPE}    application/x-www-form-urlencoded
+${AUTO_USERNAME}    15311446193
+${AUTO_PASSWORD}    123456
+${TEST_ROOM_ID}    58
+${ARTICLE-LIST_URI}    /article-list
+${CUSTOMER-INFO_URI}    /customer-info
+${QUOTATION-REMINDER-SET_URI}    /quotation-reminder-set
+${GET-OPEN-ACCOUNT_URI}    /get-open-account
+${TRADE-DETAIL-LIST_URI}    /trade-detail-list
+${GET-RECEIVE-CALL-STATUS_URI}    /get-receive-call-status
+${SPEAK_URI}      /adviser/speak
+${GETDATA_URI}    /adviser/getData
+${INDEX_URI}      /index
+${LOGIN_URI}      /login
+${HELP-LIST_URI}    /help-list
+${LIVE-CALL_URI}    /live-call
+${LIVE-COURSES_URI}    /live-courses
+${GET-LIVE-SPEAK_URI}    /get-live-speak
+${SET-RECEIVE-CALL-STATUS_URI}    /set-receive-call-status
+${SEND-VERCODE_URI}    /secret/send-verCode
+${CUSTOMER-ACCOUNT_URI}    /customer-Account
+${FINANCE_URI}    /finance
+${MARKETINFO_URI}    /market/query/marketInfo
+${ARTICLE-DETAIL_URI}    /article-detail
+${PROFIT-LIST_URI}    /profit-list
+${MYMESSAGE_URI}    /adviser/myMessage
+${SURVEY_URI}     /survey
+${FEED-BACK_URI}    /feed-back
+${GET-QUOTATION-REMINDER-SMS_URI}    /get-quotation-reminder-sms
+${GETROOMS_URI}    /adviser/getRooms
+${AGREE_URI}      /agree
+${OPEN-ACCOUNT_URI}    /secret/open-account
+${LIVE-CALL-DETAIL_URI}    /live-call-detail
+${LIVE-SPEAK_URI}    /live-speak
+${REGISTER_URI}    /secret/register
+${TIMELINE_URI}    /market/query/timeline
+${QUOTATION_URI}    /market/query/quotation
+${REGISTERIDFA_URI}    /idfa/registerIDFA
+${ASK_URI}        /adviser/ask
+${QILUCE-INVEST-LIST_URI}    /qiluce-invest-list
+${SET-QUOTATION-REMINDER-SMS_URI}    /set-quotation-reminder-sms
+${BANK-LIST_URI}    /bank-list
+${QUOTATION-REMINDER-FETCH_URI}    /quotation-reminder-fetch

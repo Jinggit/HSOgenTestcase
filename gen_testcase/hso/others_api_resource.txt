@@ -1,0 +1,214 @@
+*** Settings ***
+Resource          public_api_resource.txt
+
+*** Keywords ***
+Take_medicine_record_times_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${TAKE_MEDICINE_RECORD_TIMES_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Overall_foods_evaluation_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${OVERALL_FOODS_EVALUATION_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+My_foods_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${MY_FOODS_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Get_share_get
+    [Arguments]    ${session}    ${shareId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${GET_SHARE_URI}    ${session}    shareId    ${shareId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+My_appointment_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${MY_APPOINTMENT_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Get_medication_score_list_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${GET_MEDICATION_SCORE_LIST_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Insurance_qa_list_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${INSURANCE_QA_LIST_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Get_danger_check_info_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${GET_DANGER_CHECK_INFO_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Get_medication_status_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${GET_MEDICATION_STATUS_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Validate_service_term_get
+    [Arguments]    ${session}    ${id}    ${linkTime}    ${userInfoTime}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${VALIDATE_SERVICE_TERM_URI}    ${session}    id    ${id}    linkTime    ${linkTime}    userInfoTime    ${userInfoTime}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Js_config_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${JS_CONFIG_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+My_doctor_studio_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${MY_DOCTOR_STUDIO_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Record_sum_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${RECORD_SUM_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Food_assessment_get
+    [Arguments]    ${session}    ${name}    ${openId}    ${type}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${FOOD_ASSESSMENT_URI}    ${session}    name    ${name}    openId    ${openId}    type    ${type}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Danger_check_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${DANGER_CHECK_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Save_user_medication_list_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${SAVE_USER_MEDICATION_LIST_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Get_lipids_signing_up_record_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${GET_LIPIDS_SIGNING_UP_RECORD_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Charge_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${CHARGE_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Insurance_qa_get
+    [Arguments]    ${session}    ${openId}    ${id}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${INSURANCE_QA_URI}    ${session}    openId    ${openId}    id    ${id}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Get_medication_time_line_get
+    [Arguments]    ${session}    ${dateTime}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${GET_MEDICATION_TIME_LINE_URI}    ${session}    dateTime    ${dateTime}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+My_insurance_list_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${MY_INSURANCE_LIST_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Consult_diet_manager_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${CONSULT_DIET_MANAGER_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Save_take_medicine_record_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${SAVE_TAKE_MEDICINE_RECORD_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Update_user_info_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${UPDATE_USER_INFO_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Save_blood_pressure_data_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${SAVE_BLOOD_PRESSURE_DATA_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Hso_record_get
+    [Arguments]    ${session}    ${openId}    ${dir}    ${filename}    ${file}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${HSO_RECORD_URI}    ${session}    openId    ${openId}    dir    ${dir}    filename    ${filename}    file    ${file}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Doctor_studios_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${DOCTOR_STUDIOS_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Get_insurance_status_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${GET_INSURANCE_STATUS_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Payment_info_get
+    [Arguments]    ${session}    ${indicatorUpdatedTime}    ${serviceUpdatedTime}    ${userInfoUpdatedTime}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${PAYMENT_INFO_URI}    ${session}    indicatorUpdatedTime    ${indicatorUpdatedTime}    serviceUpdatedTime    ${serviceUpdatedTime}    userInfoUpdatedTime    ${userInfoUpdatedTime}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Medication_get
+    [Arguments]    ${session}    ${name}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${MEDICATION_URI}    ${session}    name    ${name}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Get_blood_pressure_list_get
+    [Arguments]    ${session}    ${openId}    ${page}    ${pageSize}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${GET_BLOOD_PRESSURE_LIST_URI}    ${session}    openId    ${openId}    page    ${page}    pageSize    ${pageSize}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Get_blood_pressure_history_data_get
+    [Arguments]    ${session}    ${measurementDay}    ${endTime}    ${measurementType}    ${startTime}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${GET_BLOOD_PRESSURE_HISTORY_DATA_URI}    ${session}    measurementDay    ${measurementDay}    endTime    ${endTime}    measurementType    ${measurementType}    startTime    ${startTime}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+My_appointment_get
+    [Arguments]    ${session}    ${openId}
+    ${resp}=    Get Request Pro    ${DEV_API_ROOT_URL}    ${MY_APPOINTMENT_URI}    ${session}    openId    ${openId}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Single_foods_evaluation_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${SINGLE_FOODS_EVALUATION_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}
+Save_bloodlipids_data_post
+    [Arguments]    ${session}    ${postbody}
+    ${resp}=    Post Request WIth JSON and Token    ${DEV_API_ROOT_URL}    ${SAVE_BLOODLIPIDS_DATA_URI}    ${session}    ${postbody}
+    ${status}    ${code}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['code']}
+    ${status}    ${message}=    Run Keyword And Ignore Error    Set Variable    ${resp.json()['message']}
+    [Return]    ${resp}    ${code}    ${message}

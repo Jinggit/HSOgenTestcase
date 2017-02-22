@@ -1,0 +1,37 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/quotation-reminder-set
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Quotation-reminder-set
+    [Documentation]    https://app.91guoxin.com/quotation-reminder-set
+    [Template]    Quotation-reminder-set_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    0
+    ...    xagusdv3    5000    3500
+
+Quotation-reminder-set_negative
+    [Documentation]    https://app.91guoxin.com/quotation-reminder-set
+    [Tags]    negative
+    [Template]    Quotation-reminder-set_negative_Temp
+
+*** Keywords ***
+Quotation-reminder-set_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${bySms}    ${xcode}    ${lowerBound}    ${upperBound}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Quotation-reminder-set    ${resp[4]}    ${bySms}    ${xcode}    ${lowerBound}    ${upperBound}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Quotation-reminder-set_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${bySms}    ${code}    ${lowerBound}    ${upperBound}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Quotation-reminder-set    ${resp[4]}    ${bySms}    ${code}    ${lowerBound}    ${upperBound}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

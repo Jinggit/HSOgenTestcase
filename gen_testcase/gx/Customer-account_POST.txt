@@ -1,0 +1,34 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/customer-Account
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Customer-account
+    [Documentation]    https://app.91guoxin.com/customer-Account
+    [Template]    Customer-account_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}
+
+Customer-account_negative
+    [Documentation]    https://app.91guoxin.com/customer-Account
+    [Tags]    negative
+    [Template]    Customer-account_negative_Temp
+
+*** Keywords ***
+Customer-account_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Customer-account    ${resp[4]}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Customer-account_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Customer-account    ${resp[4]}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

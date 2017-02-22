@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/get_blood_pressure_history_data?
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Get_blood_pressure_history_data_get
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/get_blood_pressure_history_data?
+    [Template]    Get_blood_pressure_history_data_get_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    sixty    2017-02-17 23:59:59    夜间    2016-12-19 00:00:00    oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+Get_blood_pressure_history_data_get_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/get_blood_pressure_history_data?
+    [Tags]    notready
+    [Template]    Get_blood_pressure_history_data_get_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    sixty    oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+*** Keywords ***
+Get_blood_pressure_history_data_get_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${measurementDay}    ${endTime}    ${measurementType}    ${startTime}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Get_blood_pressure_history_data_get    ${SESSION}    ${measurementDay}    ${endTime}    ${measurementType}    ${startTime}    ${openId}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Get_blood_pressure_history_data_get_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${measurementDay}    ${endTime}    ${measurementType}    ${startTime}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Get_blood_pressure_history_data_get    ${SESSION}    ${measurementDay}    ${endTime}    ${measurementType}    ${startTime}    ${openId}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

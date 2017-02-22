@@ -1,0 +1,31 @@
+*** Settings ***
+Documentation     https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/consult_diet_manager?
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Consult_diet_manager_get
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/consult_diet_manager?
+    [Template]    Consult_diet_manager_get_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+Consult_diet_manager_get_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/consult_diet_manager?
+    [Tags]
+    [Template]    Consult_diet_manager_get_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+*** Keywords ***
+Consult_diet_manager_get_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Consult_diet_manager_get    ${SESSION}    ${openId}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+
+Consult_diet_manager_get_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Consult_diet_manager_get    ${SESSION}    ${openId}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

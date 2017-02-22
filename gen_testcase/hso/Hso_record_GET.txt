@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/get_oss_signature/hso_record?
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Hso_record_get
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/get_oss_signature/hso_record?
+    [Template]    Hso_record_get_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    oVcyAwtf_d86Eig1zGkdJBJxk_Zk    blood_lipid/2017_02    IMG_0029.PNG    [object File]
+
+Hso_record_get_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/get_oss_signature/hso_record?
+    [Tags]    notready
+    [Template]    Hso_record_get_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}     oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+*** Keywords ***
+Hso_record_get_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}    ${dir}    ${filename}    ${file}
+    Log    ${testdata_info}
+    ${resp}=    Hso_record_get    ${SESSION}    ${openId}    ${dir}    ${filename}    ${file}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Hso_record_get_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}    ${dir}    ${filename}    ${file}
+    Log    ${testdata_info}
+    ${resp}=    Hso_record_get    ${SESSION}    ${openId}    ${dir}    ${filename}    ${file}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

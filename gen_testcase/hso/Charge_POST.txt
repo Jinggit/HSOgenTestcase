@@ -1,0 +1,29 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/payment/charge
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Charge_post
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/payment/charge
+    [Template]    Charge_post_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    {u'openid': u'oVcyAwtf_d86Eig1zGkdJBJxk_Zk', u'amount': 9999, u'electronicPrescriptionId': 1, u'staffId': 1011, u'serviceProductId': 3, u'channel': 100}
+
+Charge_post_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/payment/charge
+    [Tags]    notready
+    [Template]    Charge_post_negative_Temp
+
+*** Keywords ***
+Charge_post_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Charge_post    ${SESSION}    ${postbody}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Charge_post_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Charge_post    ${SESSION}    ${postbody}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

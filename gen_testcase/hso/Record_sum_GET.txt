@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patient/record_sum?
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Record_sum_get
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patient/record_sum?
+    [Template]    Record_sum_get_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+Record_sum_get_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patient/record_sum?
+    [Tags]    notready
+    [Template]    Record_sum_get_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}     oVcyAwtf_d86Eig1zGkdJBJxk_Zk
+
+*** Keywords ***
+Record_sum_get_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Record_sum_get    ${SESSION}    ${openId}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Record_sum_get_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${openId}
+    Log    ${testdata_info}
+    ${resp}=    Record_sum_get    ${SESSION}    ${openId}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

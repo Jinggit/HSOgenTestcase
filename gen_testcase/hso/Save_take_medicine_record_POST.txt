@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/save_take_medicine_record
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Save_take_medicine_record_post
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/save_take_medicine_record
+    [Template]    Save_take_medicine_record_post_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    {u'openId': u'oVcyAwtf_d86Eig1zGkdJBJxk_Zk', u'medicineIds': [5, 20, 95, 271]}
+
+Save_take_medicine_record_post_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/save_take_medicine_record
+    [Tags]    notready
+    [Template]    Save_take_medicine_record_post_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}        {u'openId': ' oVcyAwtf_d86Eig1zGkdJBJxk_Zk'}
+
+*** Keywords ***
+Save_take_medicine_record_post_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Save_take_medicine_record_post    ${SESSION}    ${postbody}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Save_take_medicine_record_post_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Save_take_medicine_record_post    ${SESSION}    ${postbody}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

@@ -1,0 +1,2 @@
+*** Settings ***
+Resource          others_api_resource.txt

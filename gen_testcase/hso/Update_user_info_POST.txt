@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/electronic_prescription/update_user_info
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Update_user_info_post
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/electronic_prescription/update_user_info
+    [Template]    Update_user_info_post_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    {u'openId': u'oVcyAwtf_d86Eig1zGkdJBJxk_Zk', u'name': u'\u674e\u7fe0', u'mobile': u'18986867697', u'linkTime': u'2017-02-17 12:21:10', u'userInfoTime': u'2017-02-17 12:05:18', u'insuranceProductId': 1, u'id': u'1', u'identity': u'37012619891213524X'}
+
+Update_user_info_post_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/electronic_prescription/update_user_info
+    [Tags]    notready
+    [Template]    Update_user_info_post_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}        {u'openId': ' oVcyAwtf_d86Eig1zGkdJBJxk_Zk'}
+
+*** Keywords ***
+Update_user_info_post_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Update_user_info_post    ${SESSION}    ${postbody}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Update_user_info_post_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Update_user_info_post    ${SESSION}    ${postbody}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

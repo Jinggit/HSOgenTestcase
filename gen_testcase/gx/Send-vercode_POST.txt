@@ -1,0 +1,36 @@
+*** Settings ***
+Documentation     https://app.91guoxin.com/secret/send-verCode
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Send-vercode
+    [Documentation]    https://app.91guoxin.com/secret/send-verCode
+    [Template]    Send-vercode_Temp
+    TestData01: 登录用户    ${EMPTY}    1    ${EMPTY}    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    I1N+x93VNLV1IRuJnTPIpO9GKEE0NIHzGT5i3hg3CJk0G0+eyREIk2beXbygO8RXkLdYuGKS3P3SD3TazwR7izBjzWn0xNJmy03uv6OfCxuB6g/OgMOUQnFHhFwExvqK0JwkVZbILiVBz5OeendTDvza4xygCH5PYoiTyL1QZI0=
+
+Send-vercode_negative
+    [Documentation]    https://app.91guoxin.com/secret/send-verCode
+    [Tags]    negative
+    [Template]    Send-vercode_negative_Temp
+
+*** Keywords ***
+Send-vercode_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${mobile}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Send-vercode    ${resp[4]}    ${mobile}
+    Should Be Equal As Strings    ${resp[2]}    ${success}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[3]}    ${message}
+
+Send-vercode_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${success}    ${message}    ${username}    ${password}
+    ...    ${mobile}
+    Log    ${testdata_info}
+    ${resp}=    Login    ${username}    ${password}
+    ${resp}=    Send-vercode    ${resp[4]}    ${mobile}
+    Should Not Be Equal As Strings    ${resp[2]}    ${success}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[3]}    ${message}

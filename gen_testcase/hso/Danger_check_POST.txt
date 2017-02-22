@@ -1,0 +1,31 @@
+*** Settings ***
+Documentation     https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/danger_check
+Force Tags        prod
+Resource          all_api_resource.txt
+
+*** Test Cases ***
+Danger_check_post
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/danger_check
+    [Template]    Danger_check_post_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    {u'openId': u'oVcyAwtf_d86Eig1zGkdJBJxk_Zk', u'checks': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+
+Danger_check_post_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/patient_mgmt/patients/danger_check
+    [Tags]
+    [Template]    Danger_check_post_negative_Temp
+    TestData1: 输入组合测试    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    {u'openId': ' oVcyAwtf_d86Eig1zGkdJBJxk_Zk'}
+
+*** Keywords ***
+Danger_check_post_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Danger_check_post    ${SESSION}    ${postbody}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+
+Danger_check_post_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Danger_check_post    ${SESSION}    ${postbody}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}

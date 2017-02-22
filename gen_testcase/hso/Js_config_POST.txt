@@ -1,0 +1,29 @@
+*** Settings ***
+Documentation    https://dev.shaco.hsohealth.com/shacoapi/api/v1/js_config
+Force Tags    prod
+Resource    all_api_resource.txt
+
+*** Test Cases ***
+Js_config_post
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/js_config
+    [Template]    Js_config_post_Temp
+    TestData01: 登录用户    0    成功    ${AUTO_USERNAME}    ${AUTO_PASSWORD}    {u'url': u'https://dev.cdn.shaco.hsohealth.com/record/ward-record?code=031Em03p0yFyjr14le2p06R43p0Em03H&state=', u'api': [u'onMenuShareTimeline', u'onMenuShareAppMessage', u'onMenuShareQQ', u'onMenuShareWeibo', u'onMenuShareQZone']}
+
+Js_config_post_negative
+    [Documentation]    https://dev.shaco.hsohealth.com/shacoapi/api/v1/js_config
+    [Tags]    notready
+    [Template]    Js_config_post_negative_Temp
+
+*** Keywords ***
+Js_config_post_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Js_config_post    ${SESSION}    ${postbody}
+    Should Be Equal As Strings    ${resp[1]}    ${code}
+    Should Be Equal As Strings    ${resp[2]}    ${message}
+Js_config_post_negative_Temp
+    [Arguments]    ${testdata_info}    ${code}    ${message}    ${username}    ${password}    ${postbody}
+    Log    ${testdata_info}
+    ${resp}=    Js_config_post    ${SESSION}    ${postbody}
+    Should Not Be Equal As Strings    ${resp[1]}    ${code}
+    Should Not Be Equal As Strings    ${resp[2]}    ${message}
